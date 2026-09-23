@@ -1,0 +1,1811 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вимпэкс Трейд — Оптовые поставки масел</title>
+    <meta name="description" content="Оптовые поставки гидравлических, моторных и редукторных масел. Прямые контракты, сертификация Честный Знак, работа с НДС.">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        /* ===== CSS-переменные и сброс ===== */
+        :root {
+            --primary: #1a3a5c;
+            --primary-light: #2a5a8c;
+            --accent: #e8a020;
+            --accent-hover: #d4901a;
+            --bg: #f8f9fb;
+            --surface: #ffffff;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --success: #16a34a;
+            --radius: 12px;
+            --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+            --shadow-lg: 0 8px 30px rgba(0,0,0,.08);
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img { max-width: 100%; display: block; }
+        a { color: inherit; text-decoration: none; }
+        button { cursor: pointer; font-family: inherit; }
+
+        /* ===== Шапка ===== */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255,255,255,.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header__inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--primary);
+        }
+
+        .logo__img {
+            height: 44px;
+            width: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .nav { display: flex; align-items: center; gap: 4px; }
+
+        .nav__link {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: .9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: .2s;
+        }
+
+        .nav__link:hover,
+        .nav__link.active {
+            color: var(--primary);
+            background: rgba(26,58,92,.06);
+        }
+
+        .header__actions { display: flex; align-items: center; gap: 12px; }
+
+        .cart-btn {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: .9rem;
+            font-weight: 600;
+            transition: .2s;
+        }
+
+        .cart-btn:hover { background: var(--primary-light); }
+
+        .cart-btn__count {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            min-width: 20px;
+            height: 20px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 10px;
+            font-size: .7rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 5px;
+        }
+
+        .burger {
+            display: none;
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .burger span {
+            width: 22px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: .2s;
+        }
+
+        /* ===== Hero ===== */
+        .hero {
+            position: relative;
+            background: linear-gradient(135deg, #0f2744 0%, #1a3a5c 50%, #2a5a8c 100%);
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(232,160,32,.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero__inner {
+            position: relative;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 100px 24px 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero__badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            background: rgba(255,255,255,.1);
+            border: 1px solid rgba(255,255,255,.15);
+            border-radius: 100px;
+            font-size: .8rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .hero__badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .4; }
+        }
+
+        .hero__title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -.02em;
+            margin-bottom: 20px;
+        }
+
+        .hero__title em { font-style: normal; color: var(--accent); }
+
+        .hero__text {
+            font-size: 1.05rem;
+            color: rgba(255,255,255,.75);
+            max-width: 480px;
+            margin-bottom: 32px;
+        }
+
+        .hero__buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-size: .95rem;
+            font-weight: 600;
+            border: none;
+            transition: .2s;
+        }
+
+        .btn--primary { background: var(--accent); color: #fff; }
+        .btn--primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
+
+        .btn--outline {
+            background: transparent;
+            color: #fff;
+            border: 1.5px solid rgba(255,255,255,.3);
+        }
+
+        .btn--outline:hover {
+            background: rgba(255,255,255,.08);
+            border-color: rgba(255,255,255,.5);
+        }
+
+        .hero__stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid rgba(255,255,255,.1);
+        }
+
+        .stat__value { font-size: 1.75rem; font-weight: 800; color: var(--accent); }
+        .stat__label { font-size: .8rem; color: rgba(255,255,255,.6); margin-top: 4px; }
+
+        .hero__visual { display: flex; justify-content: center; }
+
+        .hero__card {
+            background: rgba(255,255,255,.07);
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 20px;
+            padding: 32px;
+            width: 100%;
+            max-width: 380px;
+            backdrop-filter: blur(8px);
+        }
+
+        .hero__card-title {
+            font-size: .8rem;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            color: rgba(255,255,255,.5);
+            margin-bottom: 16px;
+        }
+
+        .hero__card-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+        }
+
+        .hero__card-item:last-child { border-bottom: none; }
+
+        .hero__card-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(232,160,32,.15);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .hero__card-label { font-size: .9rem; font-weight: 500; }
+        .hero__card-sub { font-size: .75rem; color: rgba(255,255,255,.5); }
+
+        /* ===== Секции ===== */
+        .section { max-width: 1280px; margin: 0 auto; padding: 80px 24px; }
+
+        .section__header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .section__title { font-size: 1.75rem; font-weight: 800; letter-spacing: -.02em; }
+        .section__subtitle { color: var(--text-muted); font-size: .95rem; margin-top: 6px; }
+
+        /* ===== Фильтры ===== */
+        .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
+
+        .filter-btn {
+            padding: 8px 18px;
+            border-radius: 100px;
+            border: 1.5px solid var(--border);
+            background: var(--surface);
+            font-size: .85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: .2s;
+        }
+
+        .filter-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .filter-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+
+        /* ===== Сетка товаров ===== */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .product-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: .25s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-3px);
+            border-color: transparent;
+        }
+
+        .product-card__img {
+            height: 220px;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card__img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 16px;
+            transition: transform .3s ease;
+        }
+
+        .product-card:hover .product-card__img img { transform: scale(1.05); }
+
+        .product-card__img-placeholder {
+            font-size: 3.5rem;
+            opacity: .3;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-card__badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: .7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            z-index: 1;
+        }
+
+        .badge--stock { background: #dcfce7; color: var(--success); }
+        .badge--order { background: #fef3c7; color: #b45309; }
+
+        .product-card__body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .product-card__category {
+            font-size: .75rem;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .product-card__name {
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1.35;
+            margin-bottom: 8px;
+            flex: 1;
+        }
+
+        .product-card__specs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+
+        .spec-tag {
+            padding: 3px 8px;
+            background: var(--bg);
+            border-radius: 5px;
+            font-size: .72rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .product-card__footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .product-card__price { font-size: 1.15rem; font-weight: 800; color: var(--primary); }
+
+        .product-card__price small {
+            font-size: .7rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            display: block;
+        }
+
+        .add-btn {
+            padding: 10px 18px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: .85rem;
+            font-weight: 600;
+            transition: .2s;
+            white-space: nowrap;
+        }
+
+        .add-btn:hover { background: var(--primary-light); }
+        .add-btn:active { transform: scale(.97); }
+
+        /* ===== Услуги ===== */
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .service-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            transition: .25s;
+        }
+
+        .service-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+
+        .service-card__icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(26,58,92,.08);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+        }
+
+        .service-card__title { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+        .service-card__text { font-size: .875rem; color: var(--text-muted); line-height: 1.6; }
+
+        /* ===== О компании ===== */
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about__title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            letter-spacing: -.02em;
+            margin-bottom: 16px;
+        }
+
+        .about__text {
+            color: var(--text-muted);
+            font-size: .95rem;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .about__features { display: flex; flex-direction: column; gap: 14px; }
+
+        .about__feature { display: flex; align-items: center; gap: 12px; font-size: .9rem; font-weight: 500; }
+
+        .about__feature-icon {
+            width: 24px;
+            height: 24px;
+            background: #dcfce7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--success);
+            font-size: .7rem;
+            flex-shrink: 0;
+        }
+
+        .about__visual {
+            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+            border-radius: 20px;
+            padding: 48px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .about__stat-row { display: flex; gap: 20px; }
+
+        .about__stat-box {
+            flex: 1;
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .about__stat-box .value { font-size: 1.5rem; font-weight: 800; color: var(--primary); }
+        .about__stat-box .label { font-size: .75rem; color: var(--text-muted); margin-top: 4px; }
+
+        /* ===== Контакты ===== */
+        .contacts { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin-bottom: 12px;
+        }
+
+        .contact-item__icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(26,58,92,.08);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .contact-item__label {
+            font-size: .75rem;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .contact-item__value { font-size: .95rem; font-weight: 600; margin-top: 2px; }
+
+        .map-widget {
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            margin-top: 8px;
+        }
+
+        .form-widget {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            min-height: 500px;
+        }
+
+        .form-widget iframe {
+            width: 100%;
+            border: 0;
+            min-height: 500px;
+            display: block;
+        }
+
+        /* ===== Подвал ===== */
+        .footer {
+            background: #0f2744;
+            color: rgba(255,255,255,.7);
+            padding: 60px 24px 30px;
+            margin-top: 40px;
+        }
+
+        .footer__inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer__brand { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 12px; }
+        .footer__text { font-size: .85rem; line-height: 1.7; }
+
+        .footer__heading {
+            font-size: .8rem;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: rgba(255,255,255,.4);
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .footer__link {
+            display: block;
+            font-size: .875rem;
+            padding: 4px 0;
+            color: rgba(255,255,255,.6);
+            transition: .2s;
+        }
+
+        .footer__link:hover { color: #fff; }
+
+        .footer__bottom {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: .8rem;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        /* ===== Модальное окно оформления заказа ===== */
+        .order-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.5);
+            z-index: 400;
+            opacity: 0;
+            visibility: hidden;
+            transition: .3s;
+        }
+        .order-modal-overlay.open { opacity: 1; visibility: visible; }
+
+        .order-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(.95);
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 520px;
+            width: calc(100% - 40px);
+            max-height: 90vh;
+            overflow-y: auto;
+            z-index: 401;
+            opacity: 0;
+            visibility: hidden;
+            transition: .3s;
+            box-shadow: 0 20px 60px rgba(0,0,0,.2);
+        }
+        .order-modal.open { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+
+        .order-modal__close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: .2s;
+        }
+        .order-modal__close:hover { background: var(--bg); }
+
+        .order-modal__title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+            letter-spacing: -.02em;
+        }
+        .order-modal__subtitle {
+            color: var(--text-muted);
+            font-size: .9rem;
+            margin-bottom: 24px;
+        }
+
+        .order-modal__list {
+            background: var(--bg);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 20px;
+            font-size: .875rem;
+        }
+        .order-modal__item {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .order-modal__item:last-child { border-bottom: none; }
+        .order-modal__item-name { flex: 1; line-height: 1.35; }
+        .order-modal__item-name small {
+            color: var(--text-muted);
+            display: block;
+            font-size: .75rem;
+            margin-top: 2px;
+        }
+        .order-modal__item-price {
+            font-weight: 600;
+            white-space: nowrap;
+            color: var(--primary);
+        }
+
+        .order-modal__total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 14px;
+            margin-top: 8px;
+            border-top: 2px solid var(--border);
+            font-weight: 700;
+        }
+        .order-modal__total-value {
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        .order-modal__buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .order-modal__btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-size: .95rem;
+            font-weight: 600;
+            border: none;
+            transition: .2s;
+            text-decoration: none;
+            cursor: pointer;
+            font-family: inherit;
+            color: #fff;
+        }
+        .order-modal__btn--tg { background: #229ED9; }
+        .order-modal__btn--tg:hover { background: #1c8ec4; transform: translateY(-1px); }
+        .order-modal__btn--phone {
+            background: var(--bg);
+            color: var(--text);
+            border: 1.5px solid var(--border);
+        }
+        .order-modal__btn--phone:hover { border-color: var(--primary); color: var(--primary); }
+
+        .order-modal__hint {
+            font-size: .8rem;
+            color: var(--text-muted);
+            text-align: center;
+            line-height: 1.5;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+        .order-modal__hint a {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        /* ===== Уведомление ===== */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--primary);
+            color: #fff;
+            padding: 14px 24px;
+            border-radius: 10px;
+            font-size: .9rem;
+            font-weight: 500;
+            box-shadow: var(--shadow-lg);
+            z-index: 300;
+            opacity: 0;
+            transition: .3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+        /* ===== Корзина (боковая панель) ===== */
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.4);
+            z-index: 200;
+            opacity: 0;
+            visibility: hidden;
+            transition: .3s;
+        }
+
+        .cart-overlay.open { opacity: 1; visibility: visible; }
+
+        .cart-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 400px;
+            max-width: 100%;
+            height: 100%;
+            background: var(--surface);
+            z-index: 201;
+            transform: translateX(100%);
+            transition: .3s cubic-bezier(.4,0,.2,1);
+            display: flex;
+            flex-direction: column;
+            box-shadow: -8px 0 30px rgba(0,0,0,.1);
+        }
+
+        .cart-panel.open { transform: translateX(0); }
+
+        .cart-panel__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .cart-panel__title { font-size: 1.1rem; font-weight: 700; }
+
+        .cart-panel__close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: .2s;
+        }
+
+        .cart-panel__close:hover { background: var(--bg); }
+
+        .cart-panel__body { flex: 1; overflow-y: auto; padding: 16px 24px; }
+
+        .cart-empty { text-align: center; padding: 60px 20px; color: var(--text-muted); }
+        .cart-empty__icon { font-size: 3rem; margin-bottom: 16px; opacity: .3; }
+
+        .cart-item {
+            display: flex;
+            gap: 14px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .cart-item__img {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            overflow: hidden;
+            padding: 4px;
+        }
+
+        .cart-item__img img { width: 100%; height: 100%; object-fit: contain; }
+
+        .cart-item__info { flex: 1; min-width: 0; }
+        .cart-item__name { font-size: .85rem; font-weight: 600; line-height: 1.3; margin-bottom: 4px; }
+        .cart-item__price { font-size: .85rem; font-weight: 700; color: var(--primary); }
+
+        .cart-item__qty { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+
+        .qty-btn {
+            width: 28px;
+            height: 28px;
+            border: 1.5px solid var(--border);
+            background: var(--surface);
+            border-radius: 6px;
+            font-size: .9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: .15s;
+        }
+
+        .qty-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+        .cart-item__qty span { font-size: .85rem; font-weight: 600; min-width: 24px; text-align: center; }
+
+        .cart-item__remove {
+            background: none;
+            border: none;
+            color: #ef4444;
+            font-size: .75rem;
+            font-weight: 600;
+            padding: 4px 0;
+            margin-top: 4px;
+        }
+
+        .cart-item__remove:hover { text-decoration: underline; }
+
+        .cart-panel__footer {
+            padding: 24px;
+            border-top: 1px solid var(--border);
+            background: var(--bg);
+        }
+
+        .cart-total { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .cart-total__label { font-size: .9rem; color: var(--text-muted); }
+        .cart-total__value { font-size: 1.3rem; font-weight: 800; color: var(--primary); }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: .2s;
+        }
+
+        .checkout-btn:hover { background: var(--accent-hover); }
+        .checkout-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+        /* ===== Адаптив ===== */
+        @media (max-width: 1024px) {
+            .hero__inner { grid-template-columns: 1fr; gap: 40px; padding: 70px 24px 60px; }
+            .hero__visual { display: none; }
+            .about, .contacts { grid-template-columns: 1fr; gap: 32px; }
+            .footer__inner { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+                position: absolute;
+                top: 72px;
+                left: 0;
+                right: 0;
+                background: var(--surface);
+                flex-direction: column;
+                padding: 16px;
+                border-bottom: 1px solid var(--border);
+                box-shadow: var(--shadow-lg);
+                gap: 2px;
+            }
+
+            .nav.open { display: flex; }
+            .nav__link { width: 100%; padding: 12px 16px; }
+            .burger { display: flex; }
+            .hero__stats { grid-template-columns: 1fr 1fr; }
+            .footer__inner { grid-template-columns: 1fr; }
+            .cart-panel { width: 100%; }
+            .section { padding: 60px 20px; }
+            .products { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== ШАПКА ===== -->
+<header class="header">
+    <div class="header__inner">
+        <a href="#" class="logo">
+            <img src="images/logo-vimpex.png" alt="Вимпэкс Трейд" class="logo__img">
+        </a>
+
+        <nav class="nav" id="nav">
+            <a href="#about" class="nav__link">О компании</a>
+            <a href="#catalog" class="nav__link active">Товары</a>
+            <a href="#services" class="nav__link">Международные поставки</a>
+            <a href="#contacts" class="nav__link">Контакты</a>
+        </nav>
+
+        <div class="header__actions">
+            <button class="cart-btn" onclick="openCart()">
+                <span>Корзина</span>
+                <span class="cart-btn__count" id="cartCount">0</span>
+            </button>
+            <button class="burger" onclick="toggleNav()" aria-label="Меню">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+    <div class="hero__inner">
+        <div>
+            <div class="hero__badge">
+                <span class="hero__badge-dot"></span>
+                Прямые поставки без посредников
+            </div>
+            <h1 class="hero__title">
+                Оптовые поставки <em>масел</em> для промышленности и транспорта
+            </h1>
+            <p class="hero__text">
+                Гидравлические, моторные, редукторные и трансмиссионные масла ведущих производителей.
+                Сертификация «Честный Знак», работа с НДС, доставка по России и СНГ.
+            </p>
+            <div class="hero__buttons">
+                <a href="#catalog" class="btn btn--primary">Перейти в каталог</a>
+                <a href="#contacts" class="btn btn--outline">Запросить прайс</a>
+            </div>
+            <div class="hero__stats">
+                <div>
+                    <div class="stat__value">15+</div>
+                    <div class="stat__label">лет на рынке</div>
+                </div>
+                <div>
+                    <div class="stat__value">9</div>
+                    <div class="stat__label">позиций в наличии</div>
+                </div>
+                <div>
+                    <div class="stat__value">100%</div>
+                    <div class="stat__label">сертификация</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero__visual">
+            <div class="hero__card">
+                <div class="hero__card-title">Наши преимущества</div>
+                <div class="hero__card-item">
+                    <div class="hero__card-icon">✓</div>
+                    <div>
+                        <div class="hero__card-label">Честный Знак</div>
+                        <div class="hero__card-sub">Вся продукция сертифицирована</div>
+                    </div>
+                </div>
+                <div class="hero__card-item">
+                    <div class="hero__card-icon">₽</div>
+                    <div>
+                        <div class="hero__card-label">Работаем с НДС</div>
+                        <div class="hero__card-sub">Полный пакет документов</div>
+                    </div>
+                </div>
+                <div class="hero__card-item">
+                    <div class="hero__card-icon">🚚</div>
+                    <div>
+                        <div class="hero__card-label">Доставка по РФ и СНГ</div>
+                        <div class="hero__card-sub">Собственная логистика</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== КАТАЛОГ ===== -->
+<section class="section" id="catalog">
+    <div class="section__header">
+        <div>
+            <h2 class="section__title">Товары в наличии</h2>
+            <p class="section__subtitle">Актуальные цены и остатки на складе</p>
+        </div>
+    </div>
+
+    <div class="filters" id="filters">
+        <button class="filter-btn active" data-filter="all">Все</button>
+        <button class="filter-btn" data-filter="hydraulic">Гидравлические</button>
+        <button class="filter-btn" data-filter="motor">Моторные</button>
+        <button class="filter-btn" data-filter="reductor">Редукторные</button>
+        <button class="filter-btn" data-filter="transmission">Трансмиссионные</button>
+    </div>
+
+    <div class="products" id="productsGrid"></div>
+</section>
+
+<!-- ===== МЕЖДУНАРОДНЫЕ ПОСТАВКИ ===== -->
+<section class="section" id="services" style="background: var(--surface); max-width: 100%; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div style="max-width: 1280px; margin: 0 auto;">
+        <div class="section__header">
+            <div>
+                <h2 class="section__title">Международные поставки</h2>
+                <p class="section__subtitle">Полное сопровождение экспортно-импортных операций — более 15 лет на рынке</p>
+            </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1.2fr 1fr; gap:48px; align-items:center; margin-bottom:56px;">
+            <div>
+                <h3 style="font-size:1.5rem; font-weight:800; letter-spacing:-.02em; line-height:1.3; margin-bottom:20px;">
+                    Закупим товар из <em style="color:var(--accent); font-style:normal;">любой страны мира</em> под ключ
+                </h3>
+                <p style="color:var(--text-muted); font-size:.95rem; line-height:1.7; margin-bottom:16px;">
+                    Наша компания поможет закупить товар из любой страны мира и обеспечит полное
+                    логистическое сопровождение поставляемых товаров — от поиска поставщика
+                    до доставки на ваш склад.
+                </p>
+                <p style="color:var(--text-muted); font-size:.95rem; line-height:1.7;">
+                    Мы осуществляем связь с поставщиками от своих аффилированных компаний,
+                    производим оплаты по всему миру, а также можем получать платежи от клиентов.
+                    <strong style="color:var(--text);">Оплата за товар производится в рублях.</strong>
+                </p>
+            </div>
+
+            <div style="background:linear-gradient(135deg, #0f2744 0%, #1a3a5c 100%); border-radius:20px; padding:36px; color:#fff; position:relative; overflow:hidden;">
+                <div style="position:absolute; top:-40px; right:-40px; width:180px; height:180px; background:radial-gradient(circle, rgba(232,160,32,.25) 0%, transparent 70%); border-radius:50%;"></div>
+                <div style="position:relative;">
+                    <div style="font-size:.75rem; text-transform:uppercase; letter-spacing:.08em; color:rgba(255,255,255,.5); margin-bottom:20px;">Ключевые условия</div>
+                    <div style="display:flex; align-items:baseline; gap:12px; margin-bottom:24px; padding-bottom:24px; border-bottom:1px solid rgba(255,255,255,.1);">
+                        <div style="font-size:2.5rem; font-weight:800; color:var(--accent); line-height:1;">от 5%</div>
+                        <div style="font-size:.875rem; color:rgba(255,255,255,.7);">стоимость наших услуг</div>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+                        <div style="width:32px; height:32px; background:rgba(232,160,32,.15); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:.9rem; flex-shrink:0;">₽</div>
+                        <div style="font-size:.9rem;">Оплата за товар в рублях</div>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <div style="width:32px; height:32px; background:rgba(232,160,32,.15); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:.9rem; flex-shrink:0;">📄</div>
+                        <div style="font-size:.9rem;">Информация о сделке в любой момент</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="services">
+            <div class="service-card">
+                <div class="service-card__icon">🌍</div>
+                <h3 class="service-card__title">Закупка из любой страны</h3>
+                <p class="service-card__text">Поможем закупить товар из любой страны мира. Работаем с проверенными поставщиками и аффилированными компаниями.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-card__icon">🚚</div>
+                <h3 class="service-card__title">Логистическое сопровождение</h3>
+                <p class="service-card__text">Обеспечиваем полное логистическое сопровождение поставляемых товаров — от склада поставщика до вашего объекта.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-card__icon">💳</div>
+                <h3 class="service-card__title">Международные расчёты</h3>
+                <p class="service-card__text">Производим оплаты по всему миру, а также можем получать платежи от клиентов. Оплата за товар — в рублях.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-card__icon">🤝</div>
+                <h3 class="service-card__title">Связь с поставщиками</h3>
+                <p class="service-card__text">Осуществляем связь с поставщиками от своих аффилированных компаний. Организуем деловые встречи и переговоры.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-card__icon">📊</div>
+                <h3 class="service-card__title">Прозрачность сделки</h3>
+                <p class="service-card__text">Предоставляем информацию о сделке в любой момент. Полный контроль на каждом этапе сотрудничества.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-card__icon">🛡️</div>
+                <h3 class="service-card__title">Опыт более 15 лет</h3>
+                <p class="service-card__text">Наша компания занимается экспортно-импортными операциями более 15 лет. Квалифицированная поддержка по ВЭД.</p>
+            </div>
+        </div>
+
+        <div style="margin-top:48px; padding:32px; background:var(--bg); border-radius:16px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; border:1px solid var(--border);">
+            <div>
+                <div style="font-size:1.1rem; font-weight:700; margin-bottom:4px;">Готовы обсудить ваш проект?</div>
+                <div style="font-size:.9rem; color:var(--text-muted);">Рассчитаем стоимость услуг от 5% и предложим оптимальную схему поставки.</div>
+            </div>
+            <a href="#contacts" class="btn btn--primary">Оставить заявку</a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== О КОМПАНИИ ===== -->
+<section class="section" id="about">
+    <div class="about">
+        <div>
+            <h2 class="about__title">О компании «Вимпэкс Трейд»</h2>
+            <p class="about__text">
+                Компания «Вимпэкс Трейд» предлагает широкий выбор решений по экспорту товаров,
+                произведенных в РФ, а также проверенные решения по импорту из других стран.
+                Наш опыт в международной практике — более 15 лет.
+            </p>
+            <p class="about__text">
+                Мы работаем напрямую с потребителями без посредников, что даёт возможность быть
+                более конкурентоспособными с эффективным ценообразованием.
+            </p>
+            <div class="about__features">
+                <div class="about__feature">
+                    <div class="about__feature-icon">✓</div>
+                    Сертификация «Честный Знак»
+                </div>
+                <div class="about__feature">
+                    <div class="about__feature-icon">✓</div>
+                    Работаем с НДС
+                </div>
+                <div class="about__feature">
+                    <div class="about__feature-icon">✓</div>
+                    Прямые контракты с производителями
+                </div>
+            </div>
+        </div>
+        <div class="about__visual">
+            <div class="about__stat-row">
+                <div class="about__stat-box">
+                    <div class="value">15+</div>
+                    <div class="label">лет опыта</div>
+                </div>
+                <div class="about__stat-box">
+                    <div class="value">9</div>
+                    <div class="label">товаров</div>
+                </div>
+            </div>
+            <div class="about__stat-row">
+                <div class="about__stat-box">
+                    <div class="value">РФ + СНГ</div>
+                    <div class="label">география</div>
+                </div>
+                <div class="about__stat-box">
+                    <div class="value">24/7</div>
+                    <div class="label">поддержка</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== КОНТАКТЫ ===== -->
+<section class="section" id="contacts" style="background: var(--surface); max-width: 100%; border-top: 1px solid var(--border);">
+    <div style="max-width: 1280px; margin: 0 auto;">
+        <div class="section__header">
+            <div>
+                <h2 class="section__title">Контакты</h2>
+                <p class="section__subtitle">Свяжитесь с нами для получения прайс-листа</p>
+            </div>
+        </div>
+
+        <div class="contacts">
+            <!-- Левая колонка: контакты + карта -->
+            <div>
+                <div class="contact-item">
+                    <div class="contact-item__icon">📍</div>
+                    <div>
+                        <div class="contact-item__label">Адрес</div>
+                        <div class="contact-item__value">109542, Российская Федерация,<br>г. Москва, Рязанский пр-т, д. 97, к. 2</div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item__icon">📞</div>
+                    <div>
+                        <div class="contact-item__label">Телефон</div>
+                        <a href="tel:+74957400946" class="contact-item__value" style="color:var(--text); text-decoration:none;">+7 495 740 09 46</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item__icon">✉️</div>
+                    <div>
+                        <div class="contact-item__label">Электронная почта</div>
+                        <a href="mailto:supplies@rtha.ru" class="contact-item__value" style="color:var(--text); text-decoration:none;">supplies@rtha.ru</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item__icon">🕐</div>
+                    <div>
+                        <div class="contact-item__label">Режим работы</div>
+                        <div class="contact-item__value">Пн–Пт: 9:00 – 18:00</div>
+                    </div>
+                </div>
+
+                <!-- Яндекс.Карта -->
+                <div class="map-widget">
+                    <iframe
+                        src="https://yandex.ru/map-widget/v1/?ll=37.80976%2C55.71484&z=16&pt=37.80976,55.71484,pm2rdl&l=map"
+                        width="100%"
+                        height="320"
+                        frameborder="0"
+                        allowfullscreen="true"
+                        style="display: block;"
+                        title="Яндекс.Карта — Рязанский проспект, 97, корпус 2"
+                    ></iframe>
+                </div>
+            </div>
+
+            <!-- Правая колонка: Яндекс.Форма -->
+            <div class="form-widget">
+                <script src="https://forms.yandex.ru/_static/embed.js"></script>
+                <iframe src="https://forms.yandex.ru/u/6ab3f33984227c0cec7e44fb?iframe=1" frameborder="0" name="ya-form-6ab3f33984227c0cec7e44fb"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== ПОДВАЛ ===== -->
+<footer class="footer">
+    <div class="footer__inner">
+        <div>
+            <div class="footer__brand">Вимпэкс Трейд</div>
+            <p class="footer__text">
+                Оптовые поставки.
+                Прямые контракты, сертификация, работа с НДС.
+            </p>
+        </div>
+        <div>
+            <div class="footer__heading">Компания</div>
+            <a href="#about" class="footer__link">О компании</a>
+            <a href="#catalog" class="footer__link">Товары</a>
+            <a href="#contacts" class="footer__link">Контакты</a>
+        </div>
+        <div>
+            <div class="footer__heading">Услуги</div>
+            <a href="#services" class="footer__link">Международная оплата</a>
+            <a href="#services" class="footer__link">Поиск партнеров</a>
+            <a href="#services" class="footer__link">Обзор рынка</a>
+        </div>
+        <div>
+            <div class="footer__heading">Контакты</div>
+            <a href="mailto:info@rtha.ru" class="footer__link">info@rtha.ru</a>
+            <span class="footer__link">Москва, Россия</span>
+        </div>
+    </div>
+    <div class="footer__bottom">
+        <span>© 2016–2026 ООО «Вимпэкс Трейд». Все права защищены.</span>
+        <span>Сертификация «Честный Знак» · Работаем с НДС</span>
+    </div>
+</footer>
+
+<!-- ===== КОРЗИНА ===== -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<aside class="cart-panel" id="cartPanel">
+    <div class="cart-panel__header">
+        <div class="cart-panel__title">Корзина</div>
+        <button class="cart-panel__close" onclick="closeCart()">✕</button>
+    </div>
+    <div class="cart-panel__body" id="cartBody">
+        <div class="cart-empty">
+            <div class="cart-empty__icon">🛒</div>
+            <p>Корзина пуста</p>
+        </div>
+    </div>
+    <div class="cart-panel__footer" id="cartFooter" style="display:none;">
+        <div class="cart-total">
+            <span class="cart-total__label">Итого:</span>
+            <span class="cart-total__value" id="cartTotal">0 ₽</span>
+        </div>
+        <button class="checkout-btn" onclick="checkout()">Оформить заказ</button>
+    </div>
+</aside>
+
+<!-- ===== УВЕДОМЛЕНИЕ ===== -->
+<!-- ===== МОДАЛЬНОЕ ОКНО ОФОРМЛЕНИЯ ЗАКАЗА ===== -->
+<div class="order-modal-overlay" id="orderModalOverlay" onclick="closeOrderModal()"></div>
+<div class="order-modal" id="orderModal">
+    <button class="order-modal__close" onclick="closeOrderModal()">✕</button>
+    <h3 class="order-modal__title">Оформление заказа</h3>
+    <p class="order-modal__subtitle">Проверьте состав заказа и отправьте его нам</p>
+
+    <div class="order-modal__list" id="orderModalList"></div>
+
+    <div class="order-modal__buttons">
+        <button class="order-modal__btn order-modal__btn--tg" onclick="sendOrderToTelegram()">
+            ✈️ Отправить заказ в Telegram
+        </button>
+        <a href="tel:+74957400946" class="order-modal__btn order-modal__btn--phone">
+            📞 Позвонить +7 495 740 09 46
+        </a>
+    </div>
+
+    <div class="order-modal__hint">
+        Если Telegram недоступен — позвоните по телефону или
+        <a href="#contacts" onclick="closeOrderModal()">заполните форму в разделе «Контакты»</a>
+    </div>
+</div>
+<div class="toast" id="toast">
+    <span>✓</span>
+    <span id="toastText">Товар добавлен в корзину</span>
+</div>
+
+<script>
+    // ===== ДАННЫЕ ТОВАРОВ =====
+    // ↓↓↓ ЗДЕСЬ ИЗМЕНИТЕ ПУТИ К КАРТИНКАМ (поле image) ↓↓↓
+    const products = [
+        {
+            id: 1,
+            name: 'Гидравлическое масло AXIS HVI 46',
+            category: 'hydraulic',
+            categoryLabel: 'Гидравлическое',
+            price: 84432.50,
+            specs: ['ISO VG 46', 'Минеральное', '209 л'],
+            inStock: true,
+            image: 'images/products/enoc-barrel-big.jpg'
+        },
+        {
+            id: 2,
+            name: 'Гидравлическое масло Enoc AXIS HVI 32',
+            category: 'hydraulic',
+            categoryLabel: 'Гидравлическое',
+            price: 83669.05,
+            specs: ['ISO VG 32', 'Минеральное', '209 л'],
+            inStock: true,
+            image: 'images/products/IMG-20230821-WA0007-1-2.jpeg'
+        },
+        {
+            id: 3,
+            name: 'Дизельное моторное масло Vulcan 755x 10w40',
+            category: 'motor',
+            categoryLabel: 'Моторное',
+            price: 133527.00,
+            specs: ['10W-40', 'Дизель', '209 л'],
+            inStock: true,
+            image: 'images/products/IMG-20230821-WA0001.jpg'
+        },
+        {
+            id: 4,
+            name: 'Минеральное редукторное масло Enoc Reduct 220',
+            category: 'reductor',
+            categoryLabel: 'Редукторное',
+            price: 106120.85,
+            specs: ['ISO VG 220', 'Минеральное', '209 л'],
+            inStock: true,
+            image: 'images/products/20230403_115546-enoc.jpg'
+        },
+        {
+            id: 5,
+            name: 'Моторное масло Enoc Vulcan 760x 10w40',
+            category: 'motor',
+            categoryLabel: 'Моторное',
+            price: 113123.09,
+            specs: ['10W-40', 'Дизель', '209 л'],
+            inStock: true,
+            image: 'images/products/IMG-20230821-WA0003.jpg'
+        },
+        {
+            id: 6,
+            name: 'Моторное масло Enoc VUL 990X EXLD 10W40 CK4',
+            category: 'motor',
+            categoryLabel: 'Моторное',
+            price: 124162.59,
+            specs: ['10W-40', 'Дизель', '209 л'],
+            inStock: true,
+            image: 'images/products/IMG-20230821-WA0004.jpg'
+        },
+        {
+            id: 7,
+            name: 'Моторное масло Enoc Protec Green 5w-30',
+            category: 'motor',
+            categoryLabel: 'Моторное',
+            price: 149659.00,
+            specs: ['5W-30', 'Бензин', '209 л'],
+            inStock: true,
+            image: 'images/products/IMG-20230821-WA0007-1-2.jpeg'
+        },
+        {
+            id: 8,
+            name: 'Синтетическое редукторное масло Enoc Reduct 220 SH',
+            category: 'reductor',
+            categoryLabel: 'Редукторное',
+            price: 252079.09,
+            specs: ['ISO VG 220', 'Синтетика', '209 л'],
+            inStock: true,
+            image: 'images/products/oil-barrels-many.jpg'
+        },
+        {
+            id: 9,
+            name: 'Трансмиссионное масло Enoc ZENON ULTRA PLUS SYN 75w90',
+            category: 'transmission',
+            categoryLabel: 'Трансмиссионное',
+            price: 217502.67,
+            specs: ['75W-90', 'Синтетика', '209 л'],
+            inStock: true,
+            image: 'images/products/20230403_115546-enoc.jpg'
+        }
+    ];
+    // ↑↑↑ КОНЕЦ БЛОКА С ТОВАРАМИ ↑↑↑
+
+    // ===== СОСТОЯНИЕ =====
+    let cart = JSON.parse(localStorage.getItem('vimplast_cart') || '[]');
+    let currentFilter = 'all';
+
+    // ===== ФОРМАТИРОВАНИЕ ЦЕНЫ =====
+    function formatPrice(n) {
+        return n.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' ₽';
+    }
+
+    // ===== РЕНДЕР ТОВАРОВ =====
+    function renderProducts() {
+        const grid = document.getElementById('productsGrid');
+        const filtered = currentFilter === 'all'
+            ? products
+            : products.filter(p => p.category === currentFilter);
+
+        if (filtered.length === 0) {
+            grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--text-muted);padding:40px;">Товары не найдены</p>';
+            return;
+        }
+
+        grid.innerHTML = filtered.map(p => `
+            <article class="product-card">
+                <div class="product-card__img">
+                    <img src="${p.image}" alt="${p.name}" loading="lazy"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="product-card__img-placeholder" style="display:none;">🛢️</div>
+                    <span class="product-card__badge ${p.inStock ? 'badge--stock' : 'badge--order'}">
+                        ${p.inStock ? 'В наличии' : 'Под заказ'}
+                    </span>
+                </div>
+                <div class="product-card__body">
+                    <div class="product-card__category">${p.categoryLabel}</div>
+                    <h3 class="product-card__name">${p.name}</h3>
+                    <div class="product-card__specs">
+                        ${p.specs.map(s => `<span class="spec-tag">${s}</span>`).join('')}
+                    </div>
+                    <div class="product-card__footer">
+                        <div class="product-card__price">
+                            ${formatPrice(p.price)}
+                            <small>за канистру 209 л</small>
+                        </div>
+                        <button class="add-btn" onclick="addToCart(${p.id})">В корзину</button>
+                    </div>
+                </div>
+            </article>
+        `).join('');
+    }
+
+    // ===== ФИЛЬТРЫ =====
+    document.getElementById('filters').addEventListener('click', e => {
+        if (!e.target.classList.contains('filter-btn')) return;
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        currentFilter = e.target.dataset.filter;
+        renderProducts();
+    });
+
+    // ===== КОРЗИНА =====
+    function addToCart(id) {
+        const product = products.find(p => p.id === id);
+        if (!product) return;
+
+        const existing = cart.find(item => item.id === id);
+        if (existing) {
+            existing.qty += 1;
+        } else {
+            cart.push({ ...product, qty: 1 });
+        }
+
+        saveCart();
+        updateCartUI();
+        showToast('Товар добавлен в корзину');
+    }
+
+    function removeFromCart(id) {
+        cart = cart.filter(item => item.id !== id);
+        saveCart();
+        updateCartUI();
+    }
+
+    function changeQty(id, delta) {
+        const item = cart.find(i => i.id === id);
+        if (!item) return;
+        item.qty += delta;
+        if (item.qty <= 0) {
+            removeFromCart(id);
+        } else {
+            saveCart();
+            updateCartUI();
+        }
+    }
+
+    function saveCart() {
+        localStorage.setItem('vimplast_cart', JSON.stringify(cart));
+    }
+
+    function getCartCount() {
+        return cart.reduce((sum, item) => sum + item.qty, 0);
+    }
+
+    function getCartTotal() {
+        return cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+    }
+
+    function updateCartUI() {
+        document.getElementById('cartCount').textContent = getCartCount();
+
+        const body = document.getElementById('cartBody');
+        const footer = document.getElementById('cartFooter');
+
+        if (cart.length === 0) {
+            body.innerHTML = `
+                <div class="cart-empty">
+                    <div class="cart-empty__icon">🛒</div>
+                    <p>Корзина пуста</p>
+                </div>
+            `;
+            footer.style.display = 'none';
+            return;
+        }
+
+        footer.style.display = 'block';
+        body.innerHTML = cart.map(item => `
+            <div class="cart-item">
+                <div class="cart-item__img">
+                    <img src="${item.image}" alt="" onerror="this.style.display='none'; this.parentElement.textContent='🛢️';">
+                </div>
+                <div class="cart-item__info">
+                    <div class="cart-item__name">${item.name}</div>
+                    <div class="cart-item__price">${formatPrice(item.price)}</div>
+                    <div class="cart-item__qty">
+                        <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
+                        <span>${item.qty}</span>
+                        <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+                    </div>
+                    <button class="cart-item__remove" onclick="removeFromCart(${item.id})">Удалить</button>
+                </div>
+            </div>
+        `).join('');
+
+        document.getElementById('cartTotal').textContent = formatPrice(getCartTotal());
+    }
+
+    // ===== ПАНЕЛЬ КОРЗИНЫ =====
+    function openCart() {
+        document.getElementById('cartOverlay').classList.add('open');
+        document.getElementById('cartPanel').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeCart() {
+        document.getElementById('cartOverlay').classList.remove('open');
+        document.getElementById('cartPanel').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    // ===== ОФОРМЛЕНИЕ =====
+    // ===== НАСТРОЙКИ TELEGRAM =====
+    // Если знаете свой Telegram-username — впишите без @, например: 'vimpex_trade'
+    // Если оставить пустым — откроется диалог выбора чата в Telegram (share).
+    const TELEGRAM_USERNAME = 'asayants';
+
+    // ===== ОФОРМЛЕНИЕ ЗАКАЗА =====
+    function checkout() {
+        if (cart.length === 0) return;
+        openOrderModal();
+    }
+
+    function openOrderModal() {
+        const list = document.getElementById('orderModalList');
+        let html = '';
+
+        cart.forEach(item => {
+            html += `
+                <div class="order-modal__item">
+                    <div class="order-modal__item-name">
+                        ${item.name}
+                        <small>${item.qty} × ${formatPrice(item.price)}</small>
+                    </div>
+                    <div class="order-modal__item-price">${formatPrice(item.price * item.qty)}</div>
+                </div>
+            `;
+        });
+
+        html += `
+            <div class="order-modal__total">
+                <span>Итого:</span>
+                <span class="order-modal__total-value">${formatPrice(getCartTotal())}</span>
+            </div>
+        `;
+
+        list.innerHTML = html;
+
+        document.getElementById('orderModalOverlay').classList.add('open');
+        document.getElementById('orderModal').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeOrderModal() {
+        document.getElementById('orderModalOverlay').classList.remove('open');
+        document.getElementById('orderModal').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    function sendOrderToTelegram() {
+        // Формируем текст заказа
+        let text = '🛒 Новый заказ с сайта rtha.ru\n\n';
+
+        cart.forEach((item, i) => {
+            text += `${i + 1}. ${item.name}\n`;
+            text += `   ${item.qty} шт × ${formatPrice(item.price)} = ${formatPrice(item.price * item.qty)}\n\n`;
+        });
+
+        text += `💰 Итого: ${formatPrice(getCartTotal())}\n\n`;
+        text += '📞 Прошу связаться со мной для подтверждения заказа.';
+
+        const encodedText = encodeURIComponent(text);
+        let url;
+
+        if (TELEGRAM_USERNAME) {
+            // Открывает чат с указанным username
+            url = `https://t.me/${TELEGRAM_USERNAME}`;
+        } else {
+            // Открывает share-диалог Telegram с предзаполненным текстом
+            url = `https://t.me/share/url?url=${encodeURIComponent('Заказ с rtha.ru')}&text=${encodedText}`;
+        }
+
+        window.open(url, '_blank');
+
+        // Даём пользователю время на отправку
+        showToast('Открыли Telegram — отправьте сообщение');
+        setTimeout(() => {
+            cart = [];
+            saveCart();
+            updateCartUI();
+            closeOrderModal();
+            showToast('Спасибо! Ждём ваше сообщение в Telegram');
+        }, 2500);
+    }
+
+    // ===== УВЕДОМЛЕНИЕ =====
+    let toastTimer;
+    function showToast(text) {
+        const toast = document.getElementById('toast');
+        document.getElementById('toastText').textContent = text;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove('show'), 7500);
+    }
+
+    // ===== МОБИЛЬНОЕ МЕНЮ =====
+    function toggleNav() {
+        document.getElementById('nav').classList.toggle('open');
+    }
+
+    // ===== ИНИЦИАЛИЗАЦИЯ =====
+    renderProducts();
+    updateCartUI();
+
+    // Плавная прокрутка для навигации
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', e => {
+            const target = document.querySelector(link.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                document.getElementById('nav').classList.remove('open');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
